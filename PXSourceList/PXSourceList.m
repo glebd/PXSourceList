@@ -92,10 +92,13 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 	
 	//Unregister the delegate from receiving notifications
 	[[NSNotificationCenter defaultCenter] removeObserver:_secondaryDelegate name:nil object:self];
-	
+
+#if !__has_feature(objc_arc)
 	[super dealloc];
+#endif
 }
 
+#if !__has_feature(objc_arc)
 - (void)finalize
 {
 	//Remove ourselves as the delegate and data source to be safe
@@ -107,6 +110,7 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 	
 	[super finalize];
 }
+#endif
 
 #pragma mark -
 #pragma mark Custom Accessors
@@ -400,9 +404,11 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 	if(width<MIN_BADGE_WIDTH) {
 		width = MIN_BADGE_WIDTH;
 	}
-	
+
+#if !__has_feature(objc_arc)
 	[badgeAttrString release];
-	
+#endif
+
 	return NSMakeSize(width, BADGE_HEIGHT);
 }
 
@@ -566,9 +572,11 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 	NSPoint badgeTextPoint = NSMakePoint(NSMidX(badgeFrame)-(stringSize.width/2.0),		//Center in the badge frame
 										 NSMidY(badgeFrame)-(stringSize.height/2.0));	//Center in the badge frame
 	[badgeAttrString drawAtPoint:badgeTextPoint];
-	
+
+#if !__has_feature(objc_arc)
 	[attributes release];
 	[badgeAttrString release];
+#endif
 }
 
 #pragma mark -
